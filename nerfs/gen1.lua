@@ -297,7 +297,7 @@ SMODS.Joker:take_ownership('poke_pidgeotto',
 -- Pidgeot 014
 SMODS.Joker:take_ownership('poke_pidgeot',
   {
-    config = {extra = {mult_mod = 3, ptype = "Colorless"}}, 
+    config = {extra = {mult_mod = 4, ptype = "Colorless"}}, 
   },
   true
 )
@@ -390,11 +390,13 @@ SMODS.Joker:take_ownership('poke_raichu',
         return {vars = {center.ability.extra.money, ''..(G.GAME and G.GAME.probabilities.normal or 1), center.ability.extra.odds}}
       end,
     calc_dollar_bonus = function(self, card)
-      if (pseudorandom('raichu') < G.GAME.probabilities.normal/card.ability.extra.odds) then
-        local _card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil)
-        _card:add_to_deck()
-        G.consumeables:emplace(_card)
-        card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        if (pseudorandom('raichu') < G.GAME.probabilities.normal/card.ability.extra.odds) then
+          local _card = create_card('Spectral', G.consumeables, nil, nil, nil, nil, nil)
+          _card:add_to_deck()
+          G.consumeables:emplace(_card)
+          card_eval_status_text(_card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+        end
       end
       return ease_poke_dollars(card, "raichu", #G.jokers.cards * card.ability.extra.money, true)
 	  end,
@@ -1249,6 +1251,7 @@ SMODS.Joker:take_ownership('poke_cloyster',
 SMODS.Joker:take_ownership('poke_gastly',
   {
     config = {extra = {odds = 6, rounds = 3, ptype = "Psychic"}, money = 15},
+    rarity = change_rarity(2, 3),
     loc_vars = function(self, info_queue, center)
       type_tooltip(self, info_queue, center)
       if pokermon_config.detailed_tooltips then
@@ -1292,6 +1295,7 @@ SMODS.Joker:take_ownership('poke_gastly',
 SMODS.Joker:take_ownership('poke_haunter',
   {
     config = {extra = {odds = 4, ptype = "Psychic", item_req = "linkcable"}, money = 10},
+    rarity = change_rarity(3, "poke_safari"),
     loc_vars = function(self, info_queue, center)
       type_tooltip(self, info_queue, center)
       if pokermon_config.detailed_tooltips then
@@ -1957,7 +1961,7 @@ SMODS.Joker:take_ownership('poke_mega_gyarados',
 -- Eevee 133 (--- Worse stats [XMult])
 SMODS.Joker:take_ownership('poke_eevee',
   {
-    config = {extra = {Xmult = 1.24, ptype = "Colorless", item_req = {"waterstone", "thunderstone", "firestone", "sunstone", "moonstone", "leafstone", "icestone", "shinystone"}, evo_list = {waterstone = "j_poke_vaporeon", thunderstone = "j_poke_jolteon", firestone = "j_poke_flareon", sunstone = "j_poke_espeon", moonstone = "j_poke_umbreon", 
+    config = {extra = {Xmult = 1.24, ptype = "Colorless", item_req = {"waterstone", "thunderstone", "firestone", "sunstone", "moonstone", "leafstone", "icestone", "shinystone"}, evo_list = {poke_waterstone = "j_poke_vaporeon", thunderstone = "j_poke_jolteon", firestone = "j_poke_flareon", sunstone = "j_poke_espeon", moonstone = "j_poke_umbreon", 
               leafstone = "j_poke_leafeon", icestone = "j_poke_glaceon", shinystone = "j_poke_sylveon"},}},
   },
   true
@@ -1982,7 +1986,7 @@ SMODS.Joker:take_ownership('poke_jolteon',
 -- Flareon 136 (--- Worse stats [Rerolls])
 SMODS.Joker:take_ownership('poke_flareon',
   {
-    config = {extra = {Xmult_multi = 1.5, ptype = "Fire"}},
+    config = {extra = {Xmult_multi = 2, ptype = "Fire"}},
   },
   true
 )

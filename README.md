@@ -10,7 +10,7 @@ equally helpful in different, unique aspects.
 
 **I have not proven that gold stake is possible on every deck. Be forewarned.**
 
-# **Balance Changes (1.0.0)**
+# **Balance Changes (0.1.2)**
 
 ## Energy Benefits
 
@@ -71,7 +71,7 @@ equally helpful in different, unique aspects.
 | 015-1 | M. Beedrill | Chips +640 => +480 |
 | 016 | Pidgey | Mult +2 => +1 |
 | 017 | Pidgeotto | Mult +3 => +2 |
-| 018 | Pidgeot | Mult +5 => +3 |
+| 018 | Pidgeot | Mult +5 => +4 |
 | 018-1 | M. Pidgeot | XMult X0.75 => X0.4 |
 | 019 | Rattata | Retrigger first 2 => 1 |
 | 020 | Raticate | Retrigger first 3 => 2 |
@@ -79,7 +79,7 @@ equally helpful in different, unique aspects.
 | 022 | Fearow |
 | 023 | Ekans | Mult +10 => +8 |
 | 024 | Arbok |
-| 025 | Pikachu | Gives $#Jokers => $1 to $#Jokers |
+| 025 | Pikachu | Gives $Num-Jokers => $1 to $Num-Jokers |
 | 026 | Raichu | Applies Negative => Removed<br>1 in 2 to create Spectral |
 | 027 | Sandshrew | Chips +25 => +15 |
 | 028 | Sandslash | Chips +40 => +25 |
@@ -197,7 +197,7 @@ equally helpful in different, unique aspects.
 | 133 | Eevee | XMult X1.33 => X1.24 |
 | 134 | Vaporeon | Chips +4 => +3 |
 | 135 | Jolteon | Money $6 => $2 |
-| 136 | Flareon | XMult X3 => X1.5 |
+| 136 | Flareon | XMult X3 => X2 |
 | 137 | Porygon |
 | 138 | Omanyte | Money $2 => $1<br>Switched tier 1 and 2 |
 | 139 | Omastar | Money $4 => $2<br>Switched tier 1 and 2 |

@@ -639,7 +639,8 @@ return {
             k_nerfmon_penalty = "Increase!",
             nerfmon_settings_energy_nerf = "Nerf energy efficiency?",
             nerfmon_settings_item_nerf = "Nerf select items?",
-            nerfmon_settings_pokes_nerf = "Nerf pokemon Jokers?"
+            nerfmon_settings_pokes_nerf = "Nerf pokemon Jokers?",
+            nerfmon_settings_rarity_nerf = "Nerf rarity of Jokers?"
         }
     }       
 }

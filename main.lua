@@ -69,9 +69,17 @@ nerfmonconfig = function()
       },
     },
     create_toggle({
+      label = localize("nerfmon_settings_pokes_nerf"),
+      ref_table = nerfmon_config,
+      ref_value = "pokes_nerf",
+      callback = function(_set_toggle)
+        NFS.write(mod_dir.."/config.lua", STR_PACK(nerfmon_config))
+      end,
+    }),
+    create_toggle({
       label = localize("nerfmon_settings_energy_nerf"),
       ref_table = nerfmon_config,
-      ref_value = "nerfmon_energy_nerf",
+      ref_value = "energy_nerf",
       callback = function(_set_toggle)
         NFS.write(mod_dir.."/config.lua", STR_PACK(nerfmon_config))
       end,
@@ -79,15 +87,15 @@ nerfmonconfig = function()
     create_toggle({
       label = localize("nerfmon_settings_item_nerf"),
       ref_table = nerfmon_config,
-      ref_value = "nerfmon_item_nerf",
+      ref_value = "item_nerf",
       callback = function(_set_toggle)
         NFS.write(mod_dir.."/config.lua", STR_PACK(nerfmon_config))
       end,
     }),
     create_toggle({
-      label = localize("nerfmon_settings_pokes_nerf"),
+      label = localize("nerfmon_settings_rarity_nerf"),
       ref_table = nerfmon_config,
-      ref_value = "nerfmon_pokes_nerf",
+      ref_value = "rarity_nerf",
       callback = function(_set_toggle)
         NFS.write(mod_dir.."/config.lua", STR_PACK(nerfmon_config))
       end,
@@ -106,19 +114,6 @@ SMODS.current_mod.config_tab = function()
       },
       nodes = nerfmonconfig()
     }
-end
-
---Load Nerfs
-local nerf_files = NFS.getDirectoryItems(mod_dir.."nerfs")
-
-for _, file in ipairs(nerf_files) do
-  sendDebugMessage ("The file is: "..file)
-  local helper, load_error = SMODS.load_file("nerfs/"..file)
-  if load_error then
-    sendDebugMessage ("The error is: "..load_error)
-  else
-    helper()
-  end
 end
 
 -- FUNCTIONS
@@ -152,4 +147,25 @@ generate_pickup_item_key = function(seed)
   end
   
   return item_key
+end
+
+change_rarity = function(old, new) 
+  if nerfmon_config.rarity_nerf then
+    return new
+  else
+    return old
+  end
+end
+
+--Load Nerfs
+local nerf_files = NFS.getDirectoryItems(mod_dir.."nerfs")
+
+for _, file in ipairs(nerf_files) do
+  sendDebugMessage ("The file is: "..file)
+  local helper, load_error = SMODS.load_file("nerfs/"..file)
+  if load_error then
+    sendDebugMessage ("The error is: "..load_error)
+  else
+    helper()
+  end
 end
