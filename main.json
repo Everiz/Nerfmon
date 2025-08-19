@@ -1,0 +1,21 @@
+{
+	"id": "nerfmon",
+	"name": "Nerfmon",
+	"author": ["Everiz"],
+	"description": "Pokermon mod focused on increasing difficulty.",
+	"prefix": "nerfmon",
+	"main_file": "main.lua",
+	"priority": 20,
+	"badge_colour": "00AEFF",
+	"badge_text_colour": "FFFFFF",
+    "display_name": "Nerfmon",
+	"version": "0.1.1",
+	"dependencies": [
+			"Steamodded (>=1.0.0~ALPHA-1426c)",
+      "Lovely (>=0.7)",
+      "Pokermon (>=2.7.0)"
+	],
+  "conflicts": [],
+	"provides": [],
+	"dump_loc": false 
+}
