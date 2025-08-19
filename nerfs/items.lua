@@ -115,35 +115,61 @@ if nerfmon_config.item_nerf then
     -- Dawn Stone (--- Worse stats [Money])
     SMODS.Consumable:take_ownership('poke_dawnstone',
     {
-        use = function(self, card, area, copier)
-        set_spoon_item(card)
-        if card.ability.extra.hand_played then
+        loc_vars = function(self, info_queue, center)
+            info_queue[#info_queue+1] = {set = 'Other', key = 'eitem'}
             local money = 0
-            local hand_played = card.ability.extra.hand_played
-            local money_limit = card.ability.extra.money_limit
+            local message = localize('poke_dawn_info2')
+            local hand_played = center and center.ability.extra.hand_played or self.config.extra.hand_played
+            local money_limit = center and center.ability.extra.money_limit or self.config.extra.money_limit
             
             if hand_played then
-            local mult = nil
-            if (SMODS.Mods["Talisman"] or {}).can_load then
-                mult = to_big(G.GAME.hands[hand_played].mult)
-                money = mult
-                if to_big(money) > to_big(money_limit) then
-                ease_dollars(money_limit) 
-                else
-                ease_dollars(to_number(money))
+                local mult = nil
+                if (SMODS.Mods["Talisman"] or {}).can_load then
+                    mult = to_big(G.GAME.hands[hand_played].mult)
+                    money = mult
+                    if to_big(money) > to_big(money_limit) then
+                    money = money_limit
+                    end
+                elseif not (SMODS.Mods["Talisman"] or {}).can_load then
+                    mult = G.GAME.hands[hand_played].mult
+                    money = mult
                 end
-            elseif not (SMODS.Mods["Talisman"] or {}).can_load then
-                mult = G.GAME.hands[hand_played].mult
-                money = mult
-                money = math.min(money, money_limit)
-                ease_dollars(money)
+                end
+                if not hand_played then
+                message = localize('poke_dawn_info1')
             end
+        
+            return {vars = {hand_played and localize(hand_played, 'poker_hands') or localize('poke_none'), math.min(money_limit, money), money_limit, message}}
+        end,
+        use = function(self, card, area, copier)
+            set_spoon_item(card)
+            if card.ability.extra.hand_played then
+                local money = 0
+                local hand_played = card.ability.extra.hand_played
+                local money_limit = card.ability.extra.money_limit
+                
+                if hand_played then
+                local mult = nil
+                if (SMODS.Mods["Talisman"] or {}).can_load then
+                    mult = to_big(G.GAME.hands[hand_played].mult)
+                    money = mult
+                    if to_big(money) > to_big(money_limit) then
+                    ease_dollars(money_limit) 
+                    else
+                    ease_dollars(to_number(money))
+                    end
+                elseif not (SMODS.Mods["Talisman"] or {}).can_load then
+                    mult = G.GAME.hands[hand_played].mult
+                    money = mult
+                    money = math.min(money, money_limit)
+                    ease_dollars(money)
+                end
+                end
+                
+                evo_item_use_total(self, card, area, copier)
+            else
+                highlighted_evo_item(self, card, area, copier)
             end
-            
-            evo_item_use_total(self, card, area, copier)
-        else
-            highlighted_evo_item(self, card, area, copier)
-        end
         end,
     },
     true
